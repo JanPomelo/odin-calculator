@@ -25,6 +25,10 @@ footer {
     height: 100%;
 }
 #calculator {
+    display: flex;
+    flex-direction: column;
+    padding-top: 5%;
+    padding: 3%;
     width: 30%;
     height: 70%;
     background-color: rgb(32, 32, 32);
@@ -34,4 +38,16 @@ footer {
     border-radius: 7%; 
     border: 4px white groove; 
     box-shadow: 10px 10px 5px black;
+}
+
+#display {
+    height: 25%;
+    background-color: rgba(178,194,181,255);
+    border: 3px inset;
+    border-color: rgb(32, 32, 32);
+    border-image: linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(to bottom, rgb(8, 8, 8), rgb(32, 32, 32));
+    border-radius: 12px;
+}
+#buttons {
+    height: 100%;
 }
