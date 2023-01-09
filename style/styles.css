@@ -47,7 +47,15 @@ footer {
     border-color: rgb(32, 32, 32);
     border-image: linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(to bottom, rgb(8, 8, 8), rgb(32, 32, 32));
     border-radius: 12px;
+    margin-bottom: 5%;
 }
-#buttons {
+#calcButtons {
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.buttonRow {
+    height: 15%;
+    background-color: white;
 }
