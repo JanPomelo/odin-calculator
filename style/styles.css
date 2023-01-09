@@ -57,5 +57,17 @@ footer {
 }
 .buttonRow {
     height: 15%;
-    background-color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.buttonRow > * {
+    box-sizing: border-box;
+    height: 100%;
+    width: 15%;
+    background-color: rgba(222,226,232,255);
+    border-radius: 7px;
+    box-shadow: 1px 1px grey;
+    border: 1px solid grey;
+    text-align: center
 }
