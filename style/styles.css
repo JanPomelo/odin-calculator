@@ -98,7 +98,7 @@ footer {
     opacity: 90%;
     border: 2px inset grey;
 }
-p {
+.buttonRow > * > div {
     font-weight: 900;
     font-family: 'Orbitron';
 }
@@ -107,6 +107,6 @@ p {
     box-shadow: 1px 1px darkblue;
     border: 1px solid darkblue;
 }
-#buttonRow1 > .optionBut > p {
+#buttonRow1 > .optionBut > div {
     color: antiquewhite;
 }
