@@ -93,3 +93,15 @@ footer {
     justify-content: center;
     align-items: center;
 }
+p {
+    font-weight: 900;
+    font-family: 'Orbitron';
+}
+#buttonRow1 > .optionBut {
+    background-color: blue;
+    box-shadow: 1px 1px darkblue;
+    border: 1px solid darkblue;
+}
+#buttonRow1 > .optionBut > p {
+    color: antiquewhite;
+}
