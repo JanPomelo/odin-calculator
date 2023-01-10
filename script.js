@@ -1,4 +1,9 @@
+let buttonRows = [...document.querySelectorAll('.buttonRow')];
 
+let buttons = buttonRows.reduce((button,buttonRow) => {
+    return [...button,
+        ...buttonRow.querySelectorAll('div')]
+},[])
 
 function add(a,b) {
     return a + b;
