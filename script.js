@@ -1,7 +1,6 @@
 let displayCurrent = document.getElementById('currentNum');
 let displayPrevious = document.getElementById('prevResult');
 let buttonRows = [...document.getElementsByClassName('buttonRow')];
-let plusMinus = document.getElementById('specialBut');
 
 let buttons = buttonRows.reduce((button,buttonRow) => {
     return [...button,
@@ -42,10 +41,34 @@ let resultButton = document.getElementById('resultBut');
 resultButton.addEventListener('click',function() {
     doCalcs()
 });
+let plusMinus = document.getElementById('specialBut');
 plusMinus.addEventListener('click',writePlusMinToDisplay);
+
+let acButton = document.getElementById('acBut');
+acButton.addEventListener('click',emptyDisplay);
+
+let deleteButton = document.getElementById('deleteBut');
+deleteButton.addEventListener('click',deleteLastDispNumber);
 
 function splitDisplay() {
     return displayCurrent.innerText.split(' ');
+}
+
+function deleteLastDispNumber() {
+    let displayArray = splitDisplay();
+    if (displayArray.length === 0) {
+        return;
+    }
+    displayArray[displayArray.length - 1] = displayArray[displayArray.length - 1].substring(0,displayArray[displayArray.length -1].length - 1);
+    displayCurrent.innerText = '';
+    for (num in displayArray) {
+        displayCurrent.innerText = displayCurrent.innerText + ' ' + displayArray[num];
+    }
+    if (displayArray[displayArray.length -1] === '') {
+        displayArray.pop();
+        return;
+    }
+
 }
 
 function writeNumToDisplay(number) {
@@ -67,6 +90,11 @@ function writePlusMinToDisplay() {
     for (num in displayArray) {
         displayCurrent.innerText = displayCurrent.innerText + ' ' + displayArray[num];
     }
+}
+
+function emptyDisplay() {
+    displayCurrent.innerText = '';
+    displayPrevious.innerText = '';
 }
 
 function doCalcs() {
