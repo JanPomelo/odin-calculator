@@ -100,10 +100,23 @@ function emptyDisplay() {
 function doCalcs() {
     let displayArray = splitDisplay();
     if (displayArray.length%2 == 1) {
+        let i = 1;
         while (displayArray.length > 1) {
-            displayArray[0] = operate(displayArray[1],Number(displayArray[0]),Number(displayArray[2]));
-            displayArray = [...displayArray.slice(0,1),
-                ...displayArray.slice(3)];
+            while (i < displayArray.length) {
+                if (displayArray[i] === '/' || displayArray[i] === '*') {
+                    displayArray[i-1] = operate(displayArray[i], Number(displayArray[i-1]), Number(displayArray[i+1]));
+                    displayArray = [...displayArray.slice(0,i),
+                        ...displayArray.slice(i+2)];
+                } else {
+                    i = i + 2;
+                }
+                console.log(displayArray);
+            }
+            if (displayArray.length > 1) {
+                displayArray[0] = operate(displayArray[1],Number(displayArray[0]),Number(displayArray[2]));
+                displayArray = [...displayArray.slice(0,1),
+                    ...displayArray.slice(3)];
+            }
         }
         displayPrevious.innerText = displayCurrent.innerText;
         displayCurrent.innerText = displayArray[0];
