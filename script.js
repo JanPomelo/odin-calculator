@@ -99,8 +99,17 @@ function emptyDisplay() {
 
 function doCalcs() {
     let displayArray = splitDisplay();
-    displayPrevious.innerText = displayCurrent.innerText;
-    displayCurrent.innerText = operate(displayArray[1],Number(displayArray[0]),Number(displayArray[2]));
+    if (displayArray.length%2 == 1) {
+        while (displayArray.length > 1) {
+            displayArray[0] = operate(displayArray[1],Number(displayArray[0]),Number(displayArray[2]));
+            displayArray = [...displayArray.slice(0,1),
+                ...displayArray.slice(3)];
+        }
+        displayPrevious.innerText = displayCurrent.innerText;
+        displayCurrent.innerText = displayArray[0];
+    } else {
+        
+    }
 }
 
 function add(a,b) {
