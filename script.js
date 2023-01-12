@@ -1,7 +1,7 @@
 let displayCurrent = document.getElementById('currentNum');
 let displayPrevious = document.getElementById('prevResult');
 let buttonRows = [...document.getElementsByClassName('buttonRow')];
-console.log(buttonRows);
+let plusMinus = document.getElementById('specialBut');
 
 let buttons = buttonRows.reduce((button,buttonRow) => {
     return [...button,
@@ -42,6 +42,11 @@ let resultButton = document.getElementById('resultBut');
 resultButton.addEventListener('click',function() {
     doCalcs()
 });
+plusMinus.addEventListener('click',writePlusMinToDisplay);
+
+function splitDisplay() {
+    return displayCurrent.innerText.split(' ');
+}
 
 function writeNumToDisplay(number) {
     displayCurrent.innerHTML += number;
@@ -51,8 +56,21 @@ function writeOperatorToDisplay(operator) {
     displayCurrent.innerHTML += ' ' + operator + ' '; 
 }
 
+function writePlusMinToDisplay() {
+    let displayArray = splitDisplay();
+    if (displayArray[displayArray.length - 1].substring(0,1) === '-') {
+        displayArray[displayArray.length - 1] = displayArray[displayArray.length -1].replace('-','');
+    } else {
+        displayArray[displayArray.length - 1] = '-' + displayArray[displayArray.length - 1];
+    }
+    displayCurrent.innerText = '';
+    for (num in displayArray) {
+        displayCurrent.innerText = displayCurrent.innerText + ' ' + displayArray[num];
+    }
+}
+
 function doCalcs() {
-    let displayArray = displayCurrent.innerText.split(' ');
+    let displayArray = splitDisplay();
     displayPrevious.innerText = displayCurrent.innerText;
     displayCurrent.innerText = operate(displayArray[1],Number(displayArray[0]),Number(displayArray[2]));
 }
