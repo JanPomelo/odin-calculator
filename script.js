@@ -1,5 +1,6 @@
 let displayCurrent = document.getElementById('currentNum');
 let displayPrevious = document.getElementById('prevResult');
+let display = document.getElementById('display');
 let buttonRows = [...document.getElementsByClassName('buttonRow')];
 
 let buttons = buttonRows.reduce((button,buttonRow) => {
@@ -50,6 +51,24 @@ acButton.addEventListener('click',emptyDisplay);
 let deleteButton = document.getElementById('deleteBut');
 deleteButton.addEventListener('click',deleteLastDispNumber);
 
+let onOffBut = document.getElementById('OnOffBut');
+onOffBut.addEventListener('click',onOff);
+
+let on = false;
+
+
+function onOff() {
+    if (!on) {
+        on = true;
+        display.className = 'displayOn';
+        console.log(display.className);
+    } else {
+        on = false;
+        display.className = 'displayOff';
+        console.log(display.className)
+    }
+}
+
 function splitDisplay() {
     return displayCurrent.innerText.split(' ');
 }
@@ -59,7 +78,11 @@ function deleteLastDispNumber() {
     if (displayArray.length === 0) {
         return;
     }
-    displayArray[displayArray.length - 1] = displayArray[displayArray.length - 1].substring(0,displayArray[displayArray.length -1].length - 1);
+    if (displayArray[displayArray.length-1] === 'NaN') {
+        displayArray[displayArray.length-1] = '';
+    } else {
+        displayArray[displayArray.length - 1] = displayArray[displayArray.length - 1].substring(0,displayArray[displayArray.length -1].length - 1);
+    }
     displayCurrent.innerText = '';
     for (num in displayArray) {
         displayCurrent.innerText = displayCurrent.innerText + ' ' + displayArray[num];
@@ -72,26 +95,32 @@ function deleteLastDispNumber() {
 }
 
 function writeNumToDisplay(number) {
-    displayCurrent.innerHTML += number;
+    if (on) {
+        displayCurrent.innerHTML += number;
+    }
 }
 
 function writeOperatorToDisplay(operator) {
-    displayCurrent.innerHTML += ' ' + operator + ' '; 
+    if (on) {
+        displayCurrent.innerHTML += ' ' + operator + ' '; 
+    }
 }
 
 function writePlusMinToDisplay() {
-    let displayArray = splitDisplay();
-    if (displayArray[displayArray.length-1] === '+' || displayArray[displayArray.length-1] === '/' || displayArray[displayArray.length-1] === '*') {
-        displayArray.push('-');
-    }
-    else if (displayArray[displayArray.length - 1].substring(0,1) === '-') {
-        displayArray[displayArray.length - 1] = displayArray[displayArray.length -1].replace('-','');
-    } else {
-        displayArray[displayArray.length - 1] = '-' + displayArray[displayArray.length - 1];
-    }
-    displayCurrent.innerText = '';
-    for (num in displayArray) {
-        displayCurrent.innerText = displayCurrent.innerText + ' ' + displayArray[num];
+    if (on) {
+        let displayArray = splitDisplay();
+        if (displayArray[displayArray.length-1] === '+' || displayArray[displayArray.length-1] === '/' || displayArray[displayArray.length-1] === '*') {
+            displayArray.push('-');
+        }
+        else if (displayArray[displayArray.length - 1].substring(0,1) === '-') {
+            displayArray[displayArray.length - 1] = displayArray[displayArray.length -1].replace('-','');
+        } else {
+            displayArray[displayArray.length - 1] = '-' + displayArray[displayArray.length - 1];
+        }
+        displayCurrent.innerText = '';
+        for (num in displayArray) {
+            displayCurrent.innerText = displayCurrent.innerText + ' ' + displayArray[num];
+        }
     }
 }
 
