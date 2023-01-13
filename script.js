@@ -81,7 +81,10 @@ function writeOperatorToDisplay(operator) {
 
 function writePlusMinToDisplay() {
     let displayArray = splitDisplay();
-    if (displayArray[displayArray.length - 1].substring(0,1) === '-') {
+    if (displayArray[displayArray.length-1] === '+' || displayArray[displayArray.length-1] === '/' || displayArray[displayArray.length-1] === '*') {
+        displayArray.push('-');
+    }
+    else if (displayArray[displayArray.length - 1].substring(0,1) === '-') {
         displayArray[displayArray.length - 1] = displayArray[displayArray.length -1].replace('-','');
     } else {
         displayArray[displayArray.length - 1] = '-' + displayArray[displayArray.length - 1];
@@ -110,7 +113,6 @@ function doCalcs() {
                 } else {
                     i = i + 2;
                 }
-                console.log(displayArray);
             }
             if (displayArray.length > 1) {
                 displayArray[0] = operate(displayArray[1],Number(displayArray[0]),Number(displayArray[2]));
@@ -121,7 +123,8 @@ function doCalcs() {
         displayPrevious.innerText = displayCurrent.innerText;
         displayCurrent.innerText = displayArray[0];
     } else {
-        
+        displayPrevious.innerText = displayCurrent.innerText;
+        displayCurrent.innerText = 'NaN';
     }
 }
 
