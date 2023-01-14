@@ -2,6 +2,11 @@ html {
     background-color: lightgrey;
     
 }
+
+h1 {
+    margin: 3px;
+    font-size: large;
+}
 body {
     width: 100vw;
     height: 100vh;
@@ -11,7 +16,7 @@ body {
     justify-content: space-between;
 }
 
-footer {
+footer, header {
     background-color: darkblue;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     color: antiquewhite;
@@ -21,7 +26,7 @@ footer {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     height: 100%;
 }
 #calculator {
@@ -38,6 +43,27 @@ footer {
     border-radius: 7%; 
     border: 4px white groove; 
     box-shadow: 10px 10px 5px black;
+}
+
+#description {
+    width: 30%;
+}
+#keybindings {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 10%;
+}
+ul {
+    list-style-type: none;
+    margin: 0;
+    margin-right: 20%;
+    padding-left: 0;
+}
+li {
+    margin-right: 20%;
+    margin-left: 0;
+    white-space: nowrap;
 }
 
 #display {
