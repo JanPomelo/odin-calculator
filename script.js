@@ -61,7 +61,10 @@ dotButton.addEventListener('click',dotButtonCheck);
 
 let on = false;
 
+let didCalcBefore = false;
+
 function dotButtonCheck() {
+    calcBefore();
     let displayArray = splitDisplay();
     if (displayArray[displayArray.length - 1].includes('.') || displayArray[displayArray.length - 1].includes('+') || 
     displayArray[displayArray.length - 1].includes('-') ||
@@ -95,7 +98,15 @@ function splitDisplay() {
     return displayCurrent.innerText.split(' ');
 }
 
+function calcBefore() {
+    if (didCalcBefore) {
+        displayCurrent.innerText = '';
+        didCalcBefore = false;
+    }
+}
+
 function deleteLastDispNumber() {
+    calcBefore();
     let displayArray = splitDisplay();
     if (displayArray.length === 0) {
         return;
@@ -117,6 +128,7 @@ function deleteLastDispNumber() {
 
 function writeNumToDisplay(number) {
     if (on) {
+        calcBefore();
         if (!displayToLong()) { 
             nanLast();
             displayCurrent.innerHTML += number;
@@ -126,6 +138,7 @@ function writeNumToDisplay(number) {
 
 function writeOperatorToDisplay(operator) {
     if (on) {
+        didCalcBefore = false;
         if (!displayToLong()) {
             nanLast();
             displayCurrent.innerHTML += ' ' + operator + ' '; 
@@ -141,6 +154,7 @@ function nanLast() {
 
 function writePlusMinToDisplay() {
     if (on) {
+        calcBefore();
         if (!displayToLong()) {
             nanLast();
             let displayArray = splitDisplay();
@@ -195,6 +209,7 @@ function doCalcs() {
         displayPrevious.innerText = displayCurrent.innerText;
         displayCurrent.innerText = 'NaN';
     }
+    didCalcBefore = true;
 }
 
 function add(a,b) {
@@ -235,8 +250,10 @@ document.addEventListener('keydown',function(event) {
     if (on) {
         if (!displayToLong()) {
             if (normalKeys.includes(event.key)) {
+                calcBefore();
                 displayCurrent.innerHTML += event.key;
             } else if (operatorKeys.includes(event.key)) {
+                didCalcBefore = false;
                 displayCurrent.innerHTML += ' ' + event.key + ' ';
             } else if (event.key === '=' || event.key === 'Enter') {
                 doCalcs();
