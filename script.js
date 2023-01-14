@@ -56,6 +56,18 @@ deleteButton.addEventListener('click',deleteLastDispNumber);
 let onOffBut = document.getElementById('OnOffBut');
 onOffBut.addEventListener('click',onOff);
 
+let dotButton = document.getElementById('dotButton');
+dotButton.addEventListener('click',function() {
+    let displayArray = splitDisplay();
+    if (displayArray[displayArray.length - 1].includes('.') || displayArray[displayArray.length - 1].includes('+') || 
+    displayArray[displayArray.length - 1].includes('-') ||
+    displayArray[displayArray.length - 1].includes('/') ||
+    displayArray[displayArray.length - 1].includes('*')) {
+        return;
+    }
+    displayCurrent.innerText = displayCurrent.innerText + this.querySelectorAll('p')[0].innerText;
+});
+
 let on = false;
 
 function displayToLong() {
@@ -99,7 +111,6 @@ function deleteLastDispNumber() {
         displayArray.pop();
         return;
     }
-
 }
 
 function writeNumToDisplay(number) {
