@@ -81,11 +81,9 @@ function onOff() {
     if (!on) {
         on = true;
         display.className = 'displayOn';
-        console.log(display.className);
     } else {
         on = false;
         display.className = 'displayOff';
-        console.log(display.className)
     }
 }
 
@@ -169,7 +167,8 @@ function doCalcs() {
         let i = 1;
         while (displayArray.length > 1) {
             while (i < displayArray.length) {
-                if (displayArray[i] === '/' || displayArray[i] === '*') {
+                if (displayArray[i] === '/' || displayArray[i] === '*') 
+                {
                     displayArray[i-1] = operate(displayArray[i], Number(displayArray[i-1]), Number(displayArray[i+1]));
                     displayArray = [...displayArray.slice(0,i),
                         ...displayArray.slice(i+2)];
@@ -185,6 +184,9 @@ function doCalcs() {
         }
         displayPrevious.innerText = displayCurrent.innerText;
         displayCurrent.innerText = displayArray[0];
+        if (displayCurrent.innerText === 'Infinity') {
+            displayCurrent.innerText = 'NaN';
+        }
     } else {
         displayPrevious.innerText = displayCurrent.innerText;
         displayCurrent.innerText = 'NaN';
