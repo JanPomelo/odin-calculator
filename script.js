@@ -105,6 +105,7 @@ function deleteLastDispNumber() {
 function writeNumToDisplay(number) {
     if (on) {
         if (!displayToLong()) { 
+            nanLast();
             displayCurrent.innerHTML += number;
         }
     }
@@ -113,14 +114,22 @@ function writeNumToDisplay(number) {
 function writeOperatorToDisplay(operator) {
     if (on) {
         if (!displayToLong()) {
+            nanLast();
             displayCurrent.innerHTML += ' ' + operator + ' '; 
         }
     }
 }
 
+function nanLast() {
+    if (displayCurrent.innerText === 'NaN') {
+        displayCurrent.innerText = '';
+    } 
+}
+
 function writePlusMinToDisplay() {
     if (on) {
         if (!displayToLong()) {
+            nanLast();
             let displayArray = splitDisplay();
             if (displayArray[displayArray.length-1] === '+' ||      displayArray[displayArray.length-1] === '/' || displayArray[displayArray.length-1] === '*') {
                 displayArray.push('-');
