@@ -83,6 +83,8 @@ function onOff() {
         display.className = 'displayOn';
     } else {
         on = false;
+        displayCurrent.innerText = '';
+        displayPrevious.innerText = '';
         display.className = 'displayOff';
     }
 }
