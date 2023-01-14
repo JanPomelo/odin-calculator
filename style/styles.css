@@ -117,3 +117,7 @@ footer {
 #buttonRow1 > .optionBut > p {
     color: antiquewhite;
 }
+
+#OnOffBut > p {
+    text-align: center;
+}
