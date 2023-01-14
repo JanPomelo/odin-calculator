@@ -17,6 +17,8 @@ let numButtons = buttons.reduce((numButs,button) => {
     }
 },[]); 
 
+let displayLength = 20;
+
 let operatorButtons = buttons.reduce((opButs,button) => {
     if(button.className === 'operatorBut') {
         return [...opButs,
@@ -56,6 +58,12 @@ onOffBut.addEventListener('click',onOff);
 
 let on = false;
 
+function displayToLong() {
+    if (displayCurrent.innerText.length >= 20) {
+        return true;
+    }
+    return false;
+}
 
 function onOff() {
     if (!on) {
@@ -96,30 +104,36 @@ function deleteLastDispNumber() {
 
 function writeNumToDisplay(number) {
     if (on) {
-        displayCurrent.innerHTML += number;
+        if (!displayToLong()) { 
+            displayCurrent.innerHTML += number;
+        }
     }
 }
 
 function writeOperatorToDisplay(operator) {
     if (on) {
-        displayCurrent.innerHTML += ' ' + operator + ' '; 
+        if (!displayToLong()) {
+            displayCurrent.innerHTML += ' ' + operator + ' '; 
+        }
     }
 }
 
 function writePlusMinToDisplay() {
     if (on) {
-        let displayArray = splitDisplay();
-        if (displayArray[displayArray.length-1] === '+' || displayArray[displayArray.length-1] === '/' || displayArray[displayArray.length-1] === '*') {
-            displayArray.push('-');
+        if (!displayToLong()) {
+            let displayArray = splitDisplay();
+            if (displayArray[displayArray.length-1] === '+' ||      displayArray[displayArray.length-1] === '/' || displayArray[displayArray.length-1] === '*') {
+                displayArray.push('-');
+            }
+            else if (displayArray[displayArray.length - 1].substring(0,1) === '-') {
+                displayArray[displayArray.length - 1] = displayArray[displayArray.length -1].replace('-','');
+            } else {
+                displayArray[displayArray.length - 1] = '-' + displayArray[displayArray.length - 1];
+            }
+            displayCurrent.innerText = '';
+            for (num in displayArray) {
+                displayCurrent.innerText = displayCurrent.innerText + ' ' + displayArray[num];
         }
-        else if (displayArray[displayArray.length - 1].substring(0,1) === '-') {
-            displayArray[displayArray.length - 1] = displayArray[displayArray.length -1].replace('-','');
-        } else {
-            displayArray[displayArray.length - 1] = '-' + displayArray[displayArray.length - 1];
-        }
-        displayCurrent.innerText = '';
-        for (num in displayArray) {
-            displayCurrent.innerText = displayCurrent.innerText + ' ' + displayArray[num];
         }
     }
 }
