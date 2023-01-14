@@ -17,7 +17,7 @@ let numButtons = buttons.reduce((numButs,button) => {
     }
 },[]); 
 
-let displayLength = 20;
+let displayLength = 17;
 
 let operatorButtons = buttons.reduce((opButs,button) => {
     if(button.className === 'operatorBut') {
@@ -57,7 +57,11 @@ let onOffBut = document.getElementById('OnOffBut');
 onOffBut.addEventListener('click',onOff);
 
 let dotButton = document.getElementById('dotButton');
-dotButton.addEventListener('click',function() {
+dotButton.addEventListener('click',dotButtonCheck);
+
+let on = false;
+
+function dotButtonCheck() {
     let displayArray = splitDisplay();
     if (displayArray[displayArray.length - 1].includes('.') || displayArray[displayArray.length - 1].includes('+') || 
     displayArray[displayArray.length - 1].includes('-') ||
@@ -65,10 +69,8 @@ dotButton.addEventListener('click',function() {
     displayArray[displayArray.length - 1].includes('*')) {
         return;
     }
-    displayCurrent.innerText = displayCurrent.innerText + this.querySelectorAll('p')[0].innerText;
-});
-
-let on = false;
+    displayCurrent.innerText = displayCurrent.innerText + dotButton.querySelectorAll('p')[0].innerText;
+}
 
 function displayToLong() {
     if (displayCurrent.innerText.length >= 20) {
@@ -223,3 +225,30 @@ function operate(operator,num1,num2) {
             return divide(num1,num2);
     }
 } 
+const normalKeys = ['1','2','3','4','5','6','7','8','9','0'];
+const operatorKeys = ['-','+','/','+'];
+
+document.addEventListener('keydown',function(event) {
+    if (event.key === 'o' || event.key === 'O') {
+        onOff();
+    }
+    if (on) {
+        if (!displayToLong()) {
+            if (normalKeys.includes(event.key)) {
+                displayCurrent.innerHTML += event.key;
+            } else if (operatorKeys.includes(event.key)) {
+                displayCurrent.innerHTML += ' ' + event.key + ' ';
+            } else if (event.key === '=' || event.key === 'Enter') {
+                doCalcs();
+            } else if (event.key === 'Backspace') {
+                deleteLastDispNumber();
+            } else if (event.key === 'Delete') {
+                emptyDisplay()
+            } else if (event.key === ',' || event.key === '.') {
+                dotButtonCheck();
+            } else if (event.key === '_') {
+                writePlusMinToDisplay();
+            }
+        }
+    }
+});
