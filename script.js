@@ -1,6 +1,16 @@
+/* initializing all variables */
+//Display
 let displayCurrent = document.getElementById('currentNum');
 let displayPrevious = document.getElementById('prevResult');
 let display = document.getElementById('display');
+
+//Buttons
+let resultButton = document.getElementById('resultBut');
+let plusMinus = document.getElementById('specialBut');
+let acButton = document.getElementById('acBut');
+let deleteButton = document.getElementById('deleteBut');
+let onOffBut = document.getElementById('OnOffBut');
+let dotButton = document.getElementById('dotButton');
 let buttonRows = [...document.getElementsByClassName('buttonRow')];
 
 let buttons = buttonRows.reduce((button,buttonRow) => {
@@ -17,7 +27,6 @@ let numButtons = buttons.reduce((numButs,button) => {
     }
 },[]); 
 
-
 let operatorButtons = buttons.reduce((opButs,button) => {
     if(button.className === 'operatorBut') {
         return [...opButs,
@@ -26,6 +35,15 @@ let operatorButtons = buttons.reduce((opButs,button) => {
         return opButs;
     }
 },[]); 
+//Keys
+const normalKeys = ['1','2','3','4','5','6','7','8','9','0'];
+const operatorKeys = ['-','+','/','+'];
+
+//initial Values
+let on = false;
+let didCalcBefore = false;
+
+/* OnClick EventListener */
 
 for (button in numButtons) {
     numButtons[button].addEventListener('click',function() {
@@ -39,28 +57,51 @@ for (button in operatorButtons) {
     })
 }
 
-let resultButton = document.getElementById('resultBut');
 resultButton.addEventListener('click',function() {
     doCalcs()
 });
-let plusMinus = document.getElementById('specialBut');
+
 plusMinus.addEventListener('click',writePlusMinToDisplay);
 
-let acButton = document.getElementById('acBut');
 acButton.addEventListener('click',emptyDisplay);
 
-let deleteButton = document.getElementById('deleteBut');
 deleteButton.addEventListener('click',deleteLastDispNumber);
 
-let onOffBut = document.getElementById('OnOffBut');
 onOffBut.addEventListener('click',onOff);
 
-let dotButton = document.getElementById('dotButton');
 dotButton.addEventListener('click',dotButtonCheck);
 
-let on = false;
+//Keydown Eventlistener
 
-let didCalcBefore = false;
+document.addEventListener('keydown',function(event) {
+    if (event.key === 'o' || event.key === 'O') {
+        onOff();
+    }
+    if (on) {
+        if (!displayToLong()) {
+            if (normalKeys.includes(event.key)) {
+                calcBefore();
+                displayCurrent.innerHTML += event.key;
+            } else if (operatorKeys.includes(event.key)) {
+                didCalcBefore = false;
+                displayCurrent.innerHTML += ' ' + event.key + ' ';
+            } else if (event.key === '=' || event.key === 'Enter') {
+                doCalcs();
+            } else if (event.key === 'Backspace') {
+                deleteLastDispNumber();
+            } else if (event.key === 'Delete') {
+                emptyDisplay()
+            } else if (event.key === ',' || event.key === '.') {
+                dotButtonCheck();
+            } else if (event.key === '_') {
+                writePlusMinToDisplay();
+            }
+        }
+    }
+});
+
+
+// This function prevents the user from writing two dots in one number. When a dot is already present in the current number, pushing the dot Button won't do anything.
 
 function dotButtonCheck() {
     calcBefore();
@@ -74,6 +115,7 @@ function dotButtonCheck() {
     displayCurrent.innerText = displayCurrent.innerText + dotButton.querySelectorAll('p')[0].innerText;
 }
 
+// This function prevents the display from overflow.
 function displayToLong() {
     if (displayCurrent.innerText.length >= 15) {
         return true;
@@ -81,6 +123,7 @@ function displayToLong() {
     return false;
 }
 
+// This function checks if the calculator is currently on. If yes, pushing the on/off button will shut down the calculator. If not, the on/off button will start the calculator
 function onOff() {
     if (!on) {
         on = true;
@@ -95,10 +138,12 @@ function onOff() {
     }
 }
 
+//This function splits the display into an array
 function splitDisplay() {
     return displayCurrent.innerText.split(' ');
 }
 
+//This function checks if the most recent action of the calculator was doing a calculation. If yes, the function will clear the display.
 function calcBefore() {
     if (didCalcBefore) {
         displayCurrent.innerText = '';
@@ -106,6 +151,7 @@ function calcBefore() {
     }
 }
 
+//This function deletes the last letter (number, operator) from the display
 function deleteLastDispNumber() {
     calcBefore();
     let displayArray = splitDisplay();
@@ -126,7 +172,7 @@ function deleteLastDispNumber() {
         return;
     }
 }
-
+//This function writes a number to the display
 function writeNumToDisplay(number) {
     if (on) {
         calcBefore();
@@ -137,6 +183,7 @@ function writeNumToDisplay(number) {
     }
 }
 
+//This function writes an operator to the display
 function writeOperatorToDisplay(operator) {
     if (on) {
         didCalcBefore = false;
@@ -147,12 +194,14 @@ function writeOperatorToDisplay(operator) {
     }
 }
 
+//This function checks if the last result of a calculation was a NaN and deletes it if yes.
 function nanLast() {
     if (displayCurrent.innerText === 'NaN') {
         displayCurrent.innerText = '';
     } 
 }
 
+//This function writes a - in front of a digit if there is no. If there is - in front of a digit, the function will delete the -
 function writePlusMinToDisplay() {
     if (on) {
         calcBefore();
@@ -175,11 +224,13 @@ function writePlusMinToDisplay() {
     }
 }
 
+//This function empties the display
 function emptyDisplay() {
     displayCurrent.innerText = '';
     displayPrevious.innerText = '';
 }
 
+//This function does all the calculations. It first checks if the input is mathematically correct. If yes it checks if there is some * or / as operators. If yes, it will do these first and the others after that. Finally it prints the result to the display.
 function doCalcs() {
     if (on) {
     let displayArray = splitDisplay();
@@ -243,32 +294,3 @@ function operate(operator,num1,num2) {
             return divide(num1,num2);
     }
 } 
-const normalKeys = ['1','2','3','4','5','6','7','8','9','0'];
-const operatorKeys = ['-','+','/','+'];
-
-document.addEventListener('keydown',function(event) {
-    if (event.key === 'o' || event.key === 'O') {
-        onOff();
-    }
-    if (on) {
-        if (!displayToLong()) {
-            if (normalKeys.includes(event.key)) {
-                calcBefore();
-                displayCurrent.innerHTML += event.key;
-            } else if (operatorKeys.includes(event.key)) {
-                didCalcBefore = false;
-                displayCurrent.innerHTML += ' ' + event.key + ' ';
-            } else if (event.key === '=' || event.key === 'Enter') {
-                doCalcs();
-            } else if (event.key === 'Backspace') {
-                deleteLastDispNumber();
-            } else if (event.key === 'Delete') {
-                emptyDisplay()
-            } else if (event.key === ',' || event.key === '.') {
-                dotButtonCheck();
-            } else if (event.key === '_') {
-                writePlusMinToDisplay();
-            }
-        }
-    }
-});
