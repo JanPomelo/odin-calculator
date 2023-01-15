@@ -30,6 +30,7 @@ footer,header {
 footer {
     background-color: rgba(246,180,128,255);;
 }
+
 header {
     color: rgba(246,180,128,255);;
 }
@@ -79,18 +80,21 @@ header {
     -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
     width: 30%;
 }
+
 #keybindings {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     gap: 10%;
 }
+
 ul {
     list-style-type: none;
     margin: 0;
     margin-right: 20%;
     padding-left: 0;
 }
+
 li {
     margin-right: 20%;
     margin-left: 0;
@@ -140,6 +144,7 @@ li {
     flex-direction: column;
     justify-content: space-evenly;
 }
+
 .buttonRow {
     height: 15%;
     display: flex;
@@ -148,6 +153,7 @@ li {
     margin-top: 5%;
     margin-bottom: 5%;
 }
+
 .buttonRow > * {
     box-sizing: border-box;
     height: 100%;
@@ -165,6 +171,7 @@ li {
     opacity: 90%;
     border: 1px inset grey;
 }
+
 .buttonRow > * > p {
     font-weight: 900;
     font-family: 'Orbitron';
@@ -174,6 +181,7 @@ li {
     box-shadow: 1px 1px darkblue;
     border: 1px solid darkblue;
 }
+
 #buttonRow1 > .optionBut > p {
     color: antiquewhite;
 }
@@ -218,5 +226,8 @@ li {
     }
     footer {
         margin-top: 5%;
+    }
+    #display > * {
+        font-size: small;
     }
 }
