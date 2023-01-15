@@ -86,11 +86,13 @@ function onOff() {
     if (!on) {
         on = true;
         display.className = 'displayOn';
+        onOffBut.querySelectorAll('p')[0].innerText = 'Off';
     } else {
         on = false;
         displayCurrent.innerText = '';
         displayPrevious.innerText = '';
         display.className = 'displayOff';
+        onOffBut.querySelectorAll('p')[0].innerText = 'On';
     }
 }
 
