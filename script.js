@@ -17,7 +17,6 @@ let numButtons = buttons.reduce((numButs,button) => {
     }
 },[]); 
 
-let displayLength = 17;
 
 let operatorButtons = buttons.reduce((opButs,button) => {
     if(button.className === 'operatorBut') {
@@ -76,7 +75,7 @@ function dotButtonCheck() {
 }
 
 function displayToLong() {
-    if (displayCurrent.innerText.length >= 20) {
+    if (displayCurrent.innerText.length >= 15) {
         return true;
     }
     return false;
@@ -182,6 +181,7 @@ function emptyDisplay() {
 }
 
 function doCalcs() {
+    if (on) {
     let displayArray = splitDisplay();
     if (displayArray.length%2 == 1) {
         let i = 1;
@@ -203,15 +203,16 @@ function doCalcs() {
             }
         }
         displayPrevious.innerText = displayCurrent.innerText;
-        displayCurrent.innerText = parseFloat(displayArray[0]).toFixed(8);
+        displayCurrent.innerText = Number(parseFloat(displayArray[0]).toFixed(8));
         if (displayCurrent.innerText === 'Infinity') {
             displayCurrent.innerText = 'NaN';
         }
-    } else {
-        displayPrevious.innerText = displayCurrent.innerText;
-        displayCurrent.innerText = 'NaN';
+        } else {
+            displayPrevious.innerText = displayCurrent.innerText;
+            displayCurrent.innerText = 'NaN';
+        }
+        didCalcBefore = true;
     }
-    didCalcBefore = true;
 }
 
 function add(a,b) {
