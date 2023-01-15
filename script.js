@@ -203,7 +203,7 @@ function doCalcs() {
             }
         }
         displayPrevious.innerText = displayCurrent.innerText;
-        displayCurrent.innerText = displayArray[0];
+        displayCurrent.innerText = parseFloat(displayArray[0]).toFixed(8);
         if (displayCurrent.innerText === 'Infinity') {
             displayCurrent.innerText = 'NaN';
         }
