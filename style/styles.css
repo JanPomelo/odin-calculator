@@ -1,5 +1,4 @@
 html {
-    background-color: lightgrey;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     width: 100vw;
     height: 100vh;
@@ -17,12 +16,13 @@ body {
     flex-direction: column;
     justify-content: space-between;
     overflow: hidden;
+    background-image: url('./wooden-bg.webp');
+    background-size: 100% 100%;
 }
 
 footer, header {
-    background-color: darkblue;
+    background-color: rgba(246,180,128,255);;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    color: antiquewhite;
     text-align: center;
 }
 #container {
@@ -37,19 +37,35 @@ footer, header {
     flex-direction: column;
     padding-top: 5%;
     padding: 3%;
+    max-width:400px;
     width: 30%;
-    max-width: 400px;
     height: 70%;
-    background-color: rgb(32, 32, 32);
+    /*background-color: rgb(32, 32, 32);
     background-image: linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(45deg, black 25%, transparent 25%, transparent 75%, black 75%, black), linear-gradient(to bottom, rgb(8, 8, 8), rgb(32, 32, 32));
     background-size: 10px 10px, 10px 10px, 10px 5px;
     background-position: 0px 0px, 5px 5px, 0px 0px;
+    */
+    background-image: url('./goose2-removebg-preview.png');
+    background-color: rgb(32, 32, 32);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
     border-radius: 7%; 
     border: 4px white groove; 
     box-shadow: 10px 10px 5px black;
 }
 
+
 #description {
+
+    background-color: rgba(246,180,128,255);
+    padding: 10px;
+    border-radius:0 0 0 30px/45px;
+    box-shadow:
+      inset 0 -40px 40px rgba(0,0,0,0.2),
+      inset 0 25px 10px rgba(0,0,0,0.2),
+      0 5px 6px 5px rgba(0,0,0,0.2);
+    font-family: 'Permanent Marker', cursive;
+    -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
     width: 30%;
 }
 #keybindings {
@@ -155,9 +171,20 @@ li {
     text-align: center;
 }
 
+#description:first-child {
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
 #description > * {
     font-display: block;
+    line-height: 1.5;
 }
+
+.operatorBut {
+    background-color: rgba(246,180,128,255);
+}
+
 
 @media only screen and (max-width: 750px) {
     body {
@@ -166,9 +193,10 @@ li {
     }
     #container {
         flex-direction: column-reverse;
+        gap: 20px;
     }
     #description {
-        width: 90%;
+        width: 60%;
     }
     #calculator {
         width: 60%;
